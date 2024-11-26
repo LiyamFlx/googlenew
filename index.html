@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EngageSense: Real-Time Engagement Tracking</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .header {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    .charts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    canvas {
+      margin: 10px;
+      max-width: 45%;
+      height: 300px;
+    }
+
+    .filter {
+      margin-bottom: 10px;
+    }
+
+    select {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>EngageSense: Real-Time Engagement Tracking</h1>
+      <p>Track Physical, Spiritual, Mental, and Emotional engagement dynamically.</p>
+    </div>
+
+    <div class="filter">
+      Filter by:
+      <select id="filterDropdown">
+        <option value="all">All Dimensions</option>
+        <option value="physical">Physical</option>
+        <option value="spiritual">Spiritual</option>
+        <option value="mental">Mental</option>
+        <option value="emotional">Emotional</option>
+      </select>
+    </div>
+
+    <div class="button-row">
+      <button id="startTracking">Start Tracking</button>
+      <button id="stopTracking">Stop Tracking</button>
+      <button id="exportData">Export Data</button>
+    </div>
+
+    <div class="charts">
+      <canvas id="physicalChart"></canvas>
+      <canvas id="spiritualChart"></canvas>
+      <canvas id="mentalChart"></canvas>
+      <canvas id="emotionalChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    let trackingInterval;
+    let time
